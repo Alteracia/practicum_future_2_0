@@ -1,0 +1,43 @@
+<mxfile host="Electron">
+  <diagram name="Страница-1" id="FhBEn0q2UC5vFHkHYzRZ">
+    <mxGraphModel dx="1712" dy="1001" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-1" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Клиника" vertex="1">
+          <mxGeometry height="50" width="100" x="160" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-2" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Бизнес" vertex="1">
+          <mxGeometry height="50" width="100" x="340" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-3" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Финтех" vertex="1">
+          <mxGeometry height="50" width="100" x="680" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-5" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Управление клиниками&amp;nbsp;" vertex="1">
+          <mxGeometry height="50" width="100" x="160" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-6" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="ИИ обучение и анализ" vertex="1">
+          <mxGeometry height="50" width="100" x="520" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-7" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Бизнес-аналитика" vertex="1">
+          <mxGeometry height="50" width="100" x="340" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-8" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Финансы" vertex="1">
+          <mxGeometry height="50" width="100" x="160" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-9" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Бизнес-аналитика" vertex="1">
+          <mxGeometry height="50" width="100" x="840" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-10" parent="1" style="html=1;dashed=0;whiteSpace=wrap;" value="Бизнес-аналитика" vertex="1">
+          <mxGeometry height="50" width="100" x="1060" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-12" parent="1" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.dataStoreID;align=left;spacingLeft=3;points=[[0,0],[0.5,0],[1,0],[0,0.5],[1,0.5],[0,1],[0.5,1],[1,1]];" value="" vertex="1">
+          <mxGeometry height="30" width="100" x="160" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="Yq6t0cHY1QF7sEwUze-S-13" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=20;fillColor=#ffffff;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;swimlaneFillColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="50" width="100" x="160" y="680" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
