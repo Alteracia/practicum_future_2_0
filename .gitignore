@@ -7,3 +7,5 @@
 Task3/.techradar/
 
 Task3/build/
+
+*.dtmp
