@@ -1,0 +1,13 @@
+.terraform/
+.tools/
+.work/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+local.auto.tfvars
+*.auto.tfvars.json
+*.pem
+*key.json
+.terraform.lock.hcl

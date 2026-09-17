@@ -1,0 +1,31 @@
+flowchart LR
+  manual["ВРУЧНУЮ до запуска<br/>Cloud + Billing + Folder<br/>Авторизация Terraform + SSH-ключ"]:::manual
+  cli["Terraform CLI<br/>init → plan → apply<br/>HCL + lock + local state"]:::local
+  admin["Администратор<br/>admin_cidr /32"]:::manual
+  internet["Интернет<br/>обновления / DNS / NTP"]:::external
+
+  subgraph folder["Существующий каталог Yandex Cloud — вручную"]
+    image["Существующий Ubuntu 22.04 LTS<br/>data source, только чтение"]:::external
+    subgraph network["TF: yandex_vpc_network.sandbox"]
+      sg["TF: yandex_vpc_security_group.sandbox<br/>IN: TCP/22 от admin_cidr<br/>OUT: ANY → 0.0.0.0/0"]:::tf
+      subgraph subnet["TF: yandex_vpc_subnet.sandbox — 10.40.10.0/24"]
+        vm["TF: yandex_compute_instance.sandbox<br/>standard-v3 / 2 vCPU / 4 GiB<br/>NIC nat=true / динамический IPv4<br/>cloud-init: пользователь и SSH"]:::tf
+      end
+      disk["TF: yandex_compute_disk.boot<br/>30 GiB network-ssd<br/>auto_delete=false при удалении VM"]:::tf
+    end
+    app["ВРУЧНУЮ после apply<br/>тестовое приложение<br/>синтетические данные и мониторинг"]:::manual
+  end
+
+  manual -. параметры .-> cli
+  cli -. API провайдера .-> network
+  image -. image_id .-> disk
+  disk -->|boot_disk.disk_id| vm
+  sg -. применяется к NIC .-> vm
+  admin -->|SSH TCP/22 через публичный IPv4| vm
+  vm -->|исходящий трафик через NAT| internet
+  app -. установка в ОС .-> vm
+
+  classDef tf fill:#eaf3ff,stroke:#2563eb,color:#142b46
+  classDef manual fill:#fff5df,stroke:#a36a13,color:#573b12
+  classDef local fill:#e7f6ef,stroke:#16815e,color:#12513e
+  classDef external fill:#f1f5f9,stroke:#64748b,color:#334155

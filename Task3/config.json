@@ -54,7 +54,7 @@
   "rings": [
     {
       "id": "adopt",
-      "title": "Активно используем",
+      "title": "Adopt",
       "description": "",
       "color": "#588157",
       "radius": 0.5,
@@ -62,7 +62,7 @@
     },
     {
       "id": "trial",
-      "title": "Пробуем",
+      "title": "Trial",
       "description": "",
       "color": "#457b9d",
       "radius": 0.69,
@@ -70,7 +70,7 @@
     },
     {
       "id": "assess",
-      "title": "Изучаем",
+      "title": "Assess",
       "description": "",
       "color": "#bc6c25",
       "radius": 0.85,
@@ -78,7 +78,7 @@
     },
     {
       "id": "hold",
-      "title": "Выкидываем",
+      "title": "Hold",
       "description": "",
       "color": "#d62828",
       "radius": 1,
@@ -110,7 +110,7 @@
   ],
   "imprint": "",
   "labels": {
-    "title": "Учебный технический радар",
+    "title": "Будущее 2.0 — технологический радар",
     "imprint": "",
     "quadrant": "Технические области",
     "quadrantOverview": "Подробнее",
