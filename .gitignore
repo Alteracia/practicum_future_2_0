@@ -1,2 +1,9 @@
 *.bkp
 /.idea
+
+*/node_modules/
+*/package-lock.json
+
+Task3/.techradar/
+
+Task3/build/
