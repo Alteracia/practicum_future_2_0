@@ -1,44 +1,105 @@
+###############################################################################
+# Ключевые параметры развёрнутой инфраструктуры.
+#
+# Выводится то, что нужно смежным командам: адрес входа, адреса узлов, имя
+# бакета и идентификаторы сети для следующих шагов (Ansible, CI/CD, настройка
+# домена). Секреты не выводятся в открытом виде.
+###############################################################################
+
 output "network_id" {
-  description = "Terraform-managed VPC network."
-  value       = yandex_vpc_network.sandbox.id
+  description = "Идентификатор сети платформы"
+  value       = yandex_vpc_network.platform.id
 }
 
-output "subnet_id" {
-  description = "Subnet in the selected availability zone."
-  value       = yandex_vpc_subnet.sandbox.id
+output "subnet_ids" {
+  description = "Идентификаторы подсетей по зонам доступности"
+  value       = { for zone, subnet in yandex_vpc_subnet.private : zone => subnet.id }
 }
 
-output "security_group_id" {
-  description = "Group restricting inbound access to SSH from admin_cidr."
-  value       = yandex_vpc_security_group.sandbox.id
+output "nat_gateway_id" {
+  description = "Идентификатор NAT-шлюза, через который узлы выходят в интернет"
+  value       = yandex_vpc_gateway.nat.id
 }
 
-output "vm_id" {
-  description = "Created virtual machine ID."
-  value       = yandex_compute_instance.sandbox.id
+output "bastion_public_ip" {
+  description = "Публичный адрес бастиона — единственная точка входа по SSH"
+  value = one([
+    for name, node in yandex_compute_instance.node :
+    node.network_interface[0].nat_ip_address if var.nodes[name].public_ip
+  ])
 }
 
-output "boot_disk_id" {
-  description = "Separately managed boot disk; destroy still deletes it."
-  value       = yandex_compute_disk.boot.id
+output "node_internal_ips" {
+  description = "Внутренние адреса узлов платформы"
+  value = {
+    for name, node in yandex_compute_instance.node :
+    name => node.network_interface[0].ip_address
+  }
 }
 
-output "private_ip" {
-  description = "VM address within the VPC."
-  value       = yandex_compute_instance.sandbox.network_interface[0].ip_address
+output "node_summary" {
+  description = "Состав платформы: роль, зона, ресурсы и диски"
+  value = {
+    for name, node in var.nodes : name => format(
+      "%s | %s | %d vCPU (%d%%) | %d GB RAM | boot %d GB %s | data %s",
+      name,
+      node.zone,
+      node.cores,
+      node.core_fraction,
+      node.memory_gb,
+      node.boot_disk_size_gb,
+      node.boot_disk_type,
+      node.data_disk_size_gb > 0 ? format("%d GB %s", node.data_disk_size_gb, node.data_disk_type) : "—"
+    )
+  }
 }
 
-output "public_ip" {
-  description = "Dynamic IPv4 assigned through one-to-one NAT."
-  value       = yandex_compute_instance.sandbox.network_interface[0].nat_ip_address
+output "portal_endpoint" {
+  description = "Точка входа в портал самообслуживания"
+  value = one(flatten([
+    for listener in yandex_lb_network_load_balancer.portal.listener : [
+      for spec in listener.external_address_spec : "https://${spec.address}"
+    ]
+  ]))
+}
+
+output "lakehouse_bucket" {
+  description = "Имя бакета объектного хранилища под lakehouse"
+  value       = yandex_storage_bucket.lakehouse.bucket
+}
+
+output "lakehouse_endpoint" {
+  description = "S3-совместимая точка доступа к бакету lakehouse"
+  value       = "https://storage.yandexcloud.net/${yandex_storage_bucket.lakehouse.bucket}"
+}
+
+output "platform_service_account_id" {
+  description = "Идентификатор сервисного аккаунта узлов платформы"
+  value       = yandex_iam_service_account.platform.id
+}
+
+output "lakehouse_access_key_id" {
+  description = "Идентификатор статического ключа доступа к бакету"
+  value       = yandex_iam_service_account_static_access_key.lakehouse.access_key
+}
+
+# Секретная часть ключа помечена sensitive: Terraform не покажет её в выводе
+# apply и в логах CI. Забрать значение можно только явной командой
+# `terraform output -raw lakehouse_secret_key` — и дальше положить в Vault.
+output "lakehouse_secret_key" {
+  description = "Секретная часть ключа доступа к бакету"
+  value       = yandex_iam_service_account_static_access_key.lakehouse.secret_key
+  sensitive   = true
 }
 
 output "ssh_command" {
-  description = "Run from admin_cidr using the matching local private key or SSH agent."
-  value       = "ssh ${var.ssh_user}@${yandex_compute_instance.sandbox.network_interface[0].nat_ip_address}"
-}
-
-output "resolved_image_id" {
-  description = "Record as image_id in local.auto.tfvars to pin the selected image."
-  value       = yandex_compute_disk.boot.image_id
+  description = "Готовая команда подключения к бастиону"
+  value = format(
+    "ssh %s@%s",
+    var.ssh_user,
+    one([
+      for name, node in yandex_compute_instance.node :
+      node.network_interface[0].nat_ip_address if var.nodes[name].public_ip
+    ])
+  )
 }

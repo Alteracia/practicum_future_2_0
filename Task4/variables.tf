@@ -1,128 +1,170 @@
+###############################################################################
+# Переменные конфигурации.
+#
+# Каждая среда (dev / stage / prod) и каждый домен получают свой .tfvars —
+# сам код при этом не меняется. Это и есть механизм, которым один и тот же
+# ландшафт воспроизводится столько раз, сколько нужно бизнесу.
+###############################################################################
+
 variable "cloud_id" {
-  description = "Target Yandex Cloud ID; set TF_VAR_cloud_id or local.auto.tfvars."
+  description = "Идентификатор облака Yandex Cloud (создаётся вне Terraform)"
   type        = string
-  nullable    = false
-  validation {
-    condition     = can(regex("^[a-z0-9]{20}$", var.cloud_id))
-    error_message = "cloud_id must be a real 20-character Yandex Cloud ID."
-  }
 }
 
 variable "folder_id" {
-  description = "Existing dedicated sandbox folder; Terraform does not create it."
+  description = "Идентификатор каталога, в котором разворачивается платформа"
   type        = string
-  nullable    = false
+}
+
+variable "project" {
+  description = "Короткое имя проекта, используется как префикс имён ресурсов"
+  type        = string
+  default     = "future20"
+
   validation {
-    condition     = can(regex("^[a-z0-9]{20}$", var.folder_id))
-    error_message = "folder_id must be a real 20-character Yandex Cloud folder ID."
+    condition     = can(regex("^[a-z][a-z0-9-]{1,18}$", var.project))
+    error_message = "Префикс: строчные латинские буквы, цифры и дефис, от 2 до 19 символов."
   }
 }
 
-variable "zone" {
-  description = "Availability zone shared by the VM, disk and subnet."
+variable "environment" {
+  description = "Среда развёртывания"
+  type        = string
+  default     = "dev"
+
+  validation {
+    condition     = contains(["dev", "stage", "prod"], var.environment)
+    error_message = "Допустимые значения: dev, stage, prod."
+  }
+}
+
+variable "default_zone" {
+  description = "Зона доступности по умолчанию для провайдера"
   type        = string
   default     = "ru-central1-a"
+}
+
+variable "image_family" {
+  description = "Семейство образов ОС для загрузочных дисков"
+  type        = string
+  default     = "ubuntu-2204-lts"
+}
+
+variable "subnets" {
+  description = "Приватные подсети: ключ — зона доступности, значение — CIDR"
+  type        = map(string)
+
+  default = {
+    "ru-central1-a" = "10.10.1.0/24"
+    "ru-central1-b" = "10.10.2.0/24"
+  }
+
   validation {
-    condition     = contains(["ru-central1-a", "ru-central1-b", "ru-central1-d"], var.zone)
-    error_message = "Select ru-central1-a, ru-central1-b or ru-central1-d."
+    condition     = length(var.subnets) > 0
+    error_message = "Нужна хотя бы одна подсеть."
   }
 }
 
-variable "name_prefix" {
-  description = "Resource name prefix; use a separate folder and state for each environment."
-  type        = string
-  default     = "future20-task4"
-  validation {
-    condition     = can(regex("^[a-z][a-z0-9-]{0,38}[a-z0-9]$", var.name_prefix))
-    error_message = "Use 2-40 lowercase letters, digits and hyphens, starting with a letter and ending with a letter or digit."
-  }
-}
+variable "admin_cidr_blocks" {
+  description = "Сети, из которых разрешён SSH на бастион и доступ к порталу"
+  type        = list(string)
 
-variable "subnet_cidr" {
-  description = "Private IPv4 /24 subnet for the sandbox."
-  type        = string
-  default     = "10.40.10.0/24"
   validation {
-    condition = (
-      can(cidrnetmask(var.subnet_cidr)) &&
-      can(regex("^10\\.", var.subnet_cidr)) &&
-      endswith(var.subnet_cidr, "/24") &&
-      try(cidrhost(var.subnet_cidr, 0) == split("/", var.subnet_cidr)[0], false)
-    )
-    error_message = "Use an aligned private 10.x.x.0/24 IPv4 network."
-  }
-}
-
-variable "admin_cidr" {
-  description = "Administrator's real public IPv4 address in /32 form; no default."
-  type        = string
-  nullable    = false
-  validation {
-    condition = (
-      can(cidrnetmask(var.admin_cidr)) &&
-      endswith(var.admin_cidr, "/32") &&
-      var.admin_cidr != "0.0.0.0/32"
-    )
-    error_message = "SSH requires one IPv4 /32 address. Broad networks such as 0.0.0.0/0 are prohibited."
+    condition     = !contains(var.admin_cidr_blocks, "0.0.0.0/0")
+    error_message = "Открывать доступ всему интернету нельзя: укажите корпоративные сети."
   }
 }
 
 variable "ssh_user" {
-  description = "Non-root OS account created by cloud-init."
+  description = "Пользователь ОС, которому прописывается SSH-ключ"
   type        = string
   default     = "ubuntu"
-  validation {
-    condition     = can(regex("^[a-z][a-z0-9_-]{0,30}$", var.ssh_user)) && var.ssh_user != "root"
-    error_message = "Use a Linux username other than root."
-  }
 }
 
 variable "ssh_public_key" {
-  description = "One OpenSSH Ed25519 public key, never the private key."
+  description = "Публичная часть SSH-ключа администраторов платформы"
   type        = string
-  nullable    = false
+
   validation {
-    condition     = can(regex("^ssh-ed25519 [A-Za-z0-9+/]+={0,3}( [^\\r\\n]*)?$", trimspace(var.ssh_public_key)))
-    error_message = "Provide a single-line ssh-ed25519 public key from a .pub file."
+    condition     = can(regex("^(ssh-ed25519|ssh-rsa|ecdsa-sha2-) ", var.ssh_public_key))
+    error_message = "Ожидается публичный ключ в формате OpenSSH (ssh-ed25519, ssh-rsa, ecdsa-sha2-*)."
   }
 }
 
-variable "vm_cores" {
-  description = "Sandbox vCPU count; deliberate small range to control resource use."
-  type        = number
-  default     = 2
-  validation {
-    condition     = contains([2, 4], var.vm_cores)
-    error_message = "This sandbox supports 2 or 4 vCPUs."
-  }
+variable "service_account_roles" {
+  description = "Роли сервисного аккаунта узлов платформы в каталоге"
+  type        = list(string)
+
+  default = [
+    "storage.editor",    # чтение и запись витрин в бакете lakehouse
+    "monitoring.editor", # отправка метрик
+    "logging.writer",    # отправка логов
+    "kms.keys.encrypterDecrypter",
+  ]
 }
 
-variable "vm_memory_gb" {
-  description = "RAM in GiB; keep at least 2 GiB per vCPU."
-  type        = number
-  default     = 4
-  validation {
-    condition     = contains([4, 8, 16], var.vm_memory_gb)
-    error_message = "Select 4, 8 or 16 GiB RAM."
-  }
-}
-
-variable "boot_disk_gb" {
-  description = "SSD boot disk capacity in GiB; synthetic test data only."
-  type        = number
-  default     = 30
-  validation {
-    condition     = var.boot_disk_gb >= 20 && var.boot_disk_gb <= 100 && floor(var.boot_disk_gb) == var.boot_disk_gb
-    error_message = "Use an integer boot disk size from 20 to 100 GiB."
-  }
-}
-
-variable "image_id" {
-  description = "Optional immutable image ID. Null resolves the current Ubuntu 22.04 LTS family image."
+variable "lakehouse_bucket_name" {
+  description = "Имя бакета объектного хранилища под lakehouse (глобально уникально)"
   type        = string
-  default     = null
+
   validation {
-    condition     = var.image_id == null ? true : can(regex("^[a-z0-9]{20}$", var.image_id))
-    error_message = "Use null or a valid 20-character image ID."
+    condition     = can(regex("^[a-z0-9][a-z0-9.-]{2,62}$", var.lakehouse_bucket_name))
+    error_message = "Имя бакета: строчные латинские буквы, цифры, точка и дефис, от 3 до 63 символов."
+  }
+}
+
+variable "cold_storage_after_days" {
+  description = "Через сколько дней сырой слой переводится в холодное хранение"
+  type        = number
+  default     = 90
+
+  validation {
+    condition     = var.cold_storage_after_days >= 1
+    error_message = "Значение должно быть не меньше одного дня."
+  }
+}
+
+variable "portal_node" {
+  description = "Ключ узла из nodes, на который балансировщик направляет трафик портала"
+  type        = string
+  default     = "portal"
+}
+
+variable "portal_target_port" {
+  description = "Порт приложения портала на виртуальной машине"
+  type        = number
+  default     = 8080
+}
+
+variable "nodes" {
+  description = <<-EOT
+    Узлы платформы. Ключ карты — роль узла, она же попадает в имя ресурсов
+    и в метку role. Добавление узла или изменение его размера выполняется
+    правкой этой карты в .tfvars, без изменения кода в main.tf.
+  EOT
+
+  type = map(object({
+    description       = string
+    zone              = string
+    cores             = number
+    memory_gb         = number
+    platform_id       = optional(string, "standard-v3")
+    core_fraction     = optional(number, 100)
+    boot_disk_type    = optional(string, "network-ssd")
+    boot_disk_size_gb = optional(number, 30)
+    data_disk_type    = optional(string, "network-ssd")
+    data_disk_size_gb = optional(number, 0)
+    public_ip         = optional(bool, false)
+    preemptible       = optional(bool, false)
+  }))
+
+  validation {
+    condition     = alltrue([for n in var.nodes : contains([5, 20, 50, 100], n.core_fraction)])
+    error_message = "core_fraction принимает значения 5, 20, 50 или 100."
+  }
+
+  validation {
+    condition     = length([for n in var.nodes : n if n.public_ip]) <= 1
+    error_message = "Публичный адрес допустим только у одного узла — бастиона."
   }
 }
