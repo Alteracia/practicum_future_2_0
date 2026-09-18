@@ -1,89 +1,125 @@
-# Задание 3. Технологический радар и план изменений
+# Задание 3. Технологический радар и роадмап изменений
 
-Срез решений: **17 сентября 2026 года**. Горизонт: **12 месяцев от старта программы**.
-Основание: [описание компании](../Company%20description.md), [задание 3](../Tasks.md), решения [Task1](../Task1/README.md) и [Task2](../Task2/README.md).
+Материалы задания:
 
-## Результат
+| Файл | Что внутри |
+|------|------------|
+| [`radar/2026-09-17/`](radar/2026-09-17) | Технологический радар: по одному `.md` на каждую технологию и методологию. В каждой карточке — поддерживаемые бизнес-сценарии и обоснование кольца |
+| [`roadmap.md`](roadmap.md) | Роадмап на 12 месяцев: этапы, шаги, ожидаемые результаты, ответственные команды, ресурсы |
+| [`justification.md`](justification.md) | Обоснование: зачем нужен каждый этап с точки зрения бизнеса |
+| [`about.md`](about.md) | Страница «Как пользоваться» — рендерится в самом радаре |
+| [`config.json`](config.json) | Конфигурация радара: квадранты, кольца, цвета, подписи |
 
-- [29 отдельных карточек радара](radar/2026-09-17): текущие технологии, используемый подход общего DWH и предлагаемые инструменты/практики.
-- [Роадмап](roadmap.md): этапы, зависимости, результаты, команды, ресурсы и критерии приёмки.
-- [Обоснование](justification.md): бизнес-эффект, альтернативы, границы решения и риски.
-- [Легенда радара](about.md): смысл колец и правила пересмотра.
+## Как собрать и посмотреть радар
 
-Численные показатели, мощности и загрузка команд ниже — **предлагаемые плановые ориентиры**, а не измеренные результаты или подтверждённый бюджет. Их утверждают в первые два месяца после обследования. Новые технологии не объявляются уже внедрёнными.
+Радар собирается статическим генератором [AOE Technology Radar](https://github.com/AOEpeople/aoe_technology_radar).
 
-## Бизнес-сценарии
+```bash
+npm install
+npm run serve   # http://localhost:3000 — режим разработки
+npm run build   # статическая сборка в ./build
+```
 
-| Код | Сценарий | Ценность |
-|---|---|---|
-| S1 | Быстрая управленческая отчётность | Сокращение ожидания решений с часов до согласованного SLO |
-| S2 | Самостоятельное создание отчётов в пределах доступа | Меньше очередей в BI-команду; доступ сотрудников всех подключённых доменов |
-| S3 | Работа клиник и развитие ИИ-ассистента | Стабильность приёма и контролируемое качество ИИ |
-| S4 | Независимый выпуск финтех-продуктов | Новые функции без расширения логики DWH |
-| S5 | Подключение фармацевтики и электроники | Повторяемая процедура подключения нового направления |
-| S6 | Единые показатели группы | Сопоставимые финансовые и операционные данные доменов |
-| S7 | Надёжность, масштабирование и контролируемая стоимость | Восстановление сервисов и прозрачный бюджет эксплуатации |
+## Структура радара
 
-## Как читать решения
+Четыре квадранта и четыре кольца, настроенные в `config.json`:
 
-**Adopt** — сохранять проверенные в компании инструменты и использовать по назначению.
-**Trial** — провести ограниченный пилот; промышленное расширение только после критериев карточки.
-**Assess** — изучить необходимость и совместимость, внедрение не обещано.
-**Hold** — не расширять использование; сопровождать действующие зависимости и выводить поэтапно.
+- **Квадранты:** Языки и Фреймворки · Практики и Паттерны · Платформы · Инструменты
+- **Кольца:** `Adopt` — используем по умолчанию · `Trial` — разворачиваем, подтверждаем на
+  ограниченном числе доменов · `Assess` — пилотируем · `Hold` — новое не делаем, существующее выводим
 
-Колонки «состояние» и «кольцо» различаются: используемый SQL Server 2008 находится в Hold, а предложенный Dremio — в Trial. Обновление кольца после пилота оформляется новым датированным срезом, не переписыванием истории.
+`Hold` не означает «выключить завтра». Легаси-хранилище, шина и интерфейс оператора клиники
+продолжают обслуживать бизнес, пока соответствующие потоки не перенесены — это поэтапный вывод
+(strangler), а не единовременная замена. Именно такое временное сосуществование заложено в цель года.
+
+## Распределение по кольцам
+
+| Кольцо | Элементов | Комментарий |
+|--------|-----------|-------------|
+| Adopt | 18 | Текущий стек, который остаётся, плюс решения, принятые без оговорок: облако, IaC, единый доступ, обезличивание, отказоустойчивость |
+| Trial | 16 | Целевая платформа данных и доменная модель — разворачиваем, но подтверждаем на 2–3 доменах |
+| Assess | 5 | Каталог данных, качество данных, MLOps, Nessie, FinOps — пилоты, от которых не зависят сроки года |
+| Hold | 4 | Легаси: SQL Server 2008, ESB на Camel, PowerBuilder, бизнес-логика в T-SQL |
 
 ## Состав радара
 
-| Технология или методология | Кольцо | Состояние |
-|---|---|---|
-| [Microsoft SQL Server 2008](radar/2026-09-17/SQL-server.md) | hold | Используется |
-| [PowerBuilder](radar/2026-09-17/powerbuilder.md) | hold | Используется |
-| [Power BI](radar/2026-09-17/power-bi.md) | adopt | Используется |
-| [Apache Camel — существующая ESB](radar/2026-09-17/apache-camel.md) | hold | Используется |
-| [Python](radar/2026-09-17/python.md) | adopt | Используется |
-| [Go](radar/2026-09-17/go.md) | adopt | Используется |
-| [Java](radar/2026-09-17/java.md) | adopt | Используется |
-| [Централизованная бизнес-логика в DWH](radar/2026-09-17/central-dwh.md) | hold | Используется |
-| [Data Mesh](radar/2026-09-17/data-mesh.md) | trial | Предлагается; фактическая зрелость доменных команд неизвестна. |
-| [Контракты данных](radar/2026-09-17/data-contracts.md) | trial | Предлагается |
-| [Lakehouse для бизнес-аналитики](radar/2026-09-17/lakehouse.md) | trial | Предлагается в Task1; производительность ещё не измерена. |
-| [Поэтапная миграция Strangler Fig](radar/2026-09-17/strangler.md) | trial | Предлагается для вывода логики из DWH и маршрутов ESB. |
-| [Облачная IaaS](radar/2026-09-17/cloud-iaas.md) | trial | Планируется компанией; провайдер и регион не заданы. |
-| [Terraform](radar/2026-09-17/terraform.md) | trial | Предлагается; практическая реализация инфраструктуры относится к Task4. |
-| [PostgreSQL](radar/2026-09-17/postgresql.md) | trial | Предлагается в Task1 для медицинского хранилища; также кандидат для новых доменных сервисов. |
-| [MinIO / S3-совместимое хранилище](radar/2026-09-17/minio.md) | trial | Предлагается в Task1; конкретная редакция и эксплуатационная модель не выбраны. |
-| [Apache Iceberg](radar/2026-09-17/iceberg.md) | trial | Предлагается |
-| [Project Nessie](radar/2026-09-17/nessie.md) | trial | Предлагается в Task1 как каталог метаданных. |
-| [Dremio](radar/2026-09-17/dremio.md) | trial | Предлагается в Task1 как основа доступа к lakehouse. |
-| [Apache Airflow](radar/2026-09-17/airflow.md) | trial | Предлагается в Task1 для подготовки данных. |
-| [Федеративное управление данными](radar/2026-09-17/governance.md) | trial | Предлагается; наличие текущих политик проверяется на П1. |
-| [Управление доступом по ролям и атрибутам](radar/2026-09-17/iam.md) | trial | Предлагается |
-| [Keycloak](radar/2026-09-17/keycloak.md) | assess | Кандидат для SSO; существующий корпоративный IdP неизвестен. |
-| [CI/CD и автоматические проверки](radar/2026-09-17/ci-cd.md) | trial | Предлагается; существующие pipelines не описаны. |
-| [Наблюдаемость и SLO](radar/2026-09-17/observability.md) | trial | Предлагается; исходные метрики и мониторинг не описаны. |
-| [Резервирование и проверяемое восстановление](radar/2026-09-17/disaster-recovery.md) | trial | Требуется компанией; фактическая текущая отказоустойчивость неизвестна. |
-| [Apache Kafka](radar/2026-09-17/kafka.md) | assess | Кандидат для событийного обмена из альтернативной схемы Task1. |
-| [MLOps и контролируемый выпуск моделей](radar/2026-09-17/mlops.md) | trial | Предлагается для существующих Python ИИ-сервисов. |
-| [MLflow](radar/2026-09-17/mlflow.md) | assess | Кандидат для учёта экспериментов и версий моделей. |
+### Языки и Фреймворки
 
-## Запуск интерактивного радара
+| Кольцо | Технология / практика | Файл |
+|--------|------------------------|------|
+| Adopt | Go | [`golang.md`](radar/2026-09-17/golang.md) |
+| Adopt | Java | [`java.md`](radar/2026-09-17/java.md) |
+| Adopt | Python | [`python.md`](radar/2026-09-17/python.md) |
+| Trial | React / Next.js | [`react-nextjs.md`](radar/2026-09-17/react-nextjs.md) |
+| Hold | PowerBuilder | [`powerbuilder.md`](radar/2026-09-17/powerbuilder.md) |
+| Hold | Бизнес-логика в T-SQL (хранимые процедуры DWH) | [`tsql-business-logic.md`](radar/2026-09-17/tsql-business-logic.md) |
 
-Из директории Task3:
+### Практики и Паттерны
 
-```powershell
-npm.cmd install
-npm.cmd run build -- --strict
-npm.cmd run serve
-```
+| Кольцо | Технология / практика | Файл |
+|--------|------------------------|------|
+| Adopt | Data Governance и управление доступом | [`data-governance.md`](radar/2026-09-17/data-governance.md) |
+| Adopt | Обезличивание и псевдонимизация медицинских данных | [`de-identification.md`](radar/2026-09-17/de-identification.md) |
+| Adopt | Отказоустойчивость, резервное копирование и гео-резервирование | [`disaster-recovery.md`](radar/2026-09-17/disaster-recovery.md) |
+| Adopt | Выделение доменов по бизнес-способностям (DDD) | [`domain-driven-design.md`](radar/2026-09-17/domain-driven-design.md) |
+| Adopt | Infrastructure as Code | [`iac.md`](radar/2026-09-17/iac.md) |
+| Adopt | Strangler Fig — поэтапный вывод легаси | [`strangler-fig.md`](radar/2026-09-17/strangler-fig.md) |
+| Trial | Data Contracts | [`data-contracts.md`](radar/2026-09-17/data-contracts.md) |
+| Trial | Data Mesh | [`data-mesh.md`](radar/2026-09-17/data-mesh.md) |
+| Trial | Data as a Product | [`data-products.md`](radar/2026-09-17/data-products.md) |
+| Trial | Событийная интеграция вместо централизованной шины | [`event-driven-integration.md`](radar/2026-09-17/event-driven-integration.md) |
+| Trial | Lakehouse | [`lakehouse.md`](radar/2026-09-17/lakehouse.md) |
+| Trial | Слои bronze / silver / gold | [`medallion-architecture.md`](radar/2026-09-17/medallion-architecture.md) |
+| Trial | Self-service аналитика | [`self-service-analytics.md`](radar/2026-09-17/self-service-analytics.md) |
+| Assess | FinOps | [`finops.md`](radar/2026-09-17/finops.md) |
+| Assess | MLOps | [`mlops.md`](radar/2026-09-17/mlops.md) |
 
-Команда serve выводит адрес локального сервера; обычно это http://localhost:3000/.
-Статический результат build находится в Task3/build и исключён из Git.
-Для повторной проверки при уже установленных зависимостях достаточно build.
-Используется имеющийся генератор [AOE Technology Radar](https://github.com/AOEpeople/aoe_technology_radar); формат front matter сохранён.
-Роадмап и обоснование читаются как Markdown в репозитории; сайт радара показывает карточки и страницу «Как пользоваться».
+### Платформы
 
-## Границы результата
+| Кольцо | Технология / практика | Файл |
+|--------|------------------------|------|
+| Adopt | Облачная инфраструктура (IaaS) | [`cloud-iaas.md`](radar/2026-09-17/cloud-iaas.md) |
+| Adopt | Keycloak | [`keycloak.md`](radar/2026-09-17/keycloak.md) |
+| Adopt | Объектное хранилище S3 (MinIO) | [`object-storage-s3.md`](radar/2026-09-17/object-storage-s3.md) |
+| Adopt | PostgreSQL | [`postgresql.md`](radar/2026-09-17/postgresql.md) |
+| Trial | Apache Iceberg | [`apache-iceberg.md`](radar/2026-09-17/apache-iceberg.md) |
+| Trial | Apache Kafka | [`apache-kafka.md`](radar/2026-09-17/apache-kafka.md) |
+| Trial | Dremio | [`dremio.md`](radar/2026-09-17/dremio.md) |
+| Trial | Kubernetes | [`kubernetes.md`](radar/2026-09-17/kubernetes.md) |
+| Assess | Project Nessie | [`nessie.md`](radar/2026-09-17/nessie.md) |
+| Hold | ESB на Apache Camel | [`apache-camel-esb.md`](radar/2026-09-17/apache-camel-esb.md) |
+| Hold | Microsoft SQL Server 2008 (корпоративное DWH) | [`sql-server.md`](radar/2026-09-17/sql-server.md) |
 
-Это архитектурный план, а не отчёт о выполненной миграции. Развёртывание Terraform и подтверждение apply относятся к Task4.
-Изменения ограничены Task3. Обнаруженные расхождения диаграмм Task1/Task2 учитываются как решения и работы П1: медицинские данные изолированы от бизнес-lakehouse, операционная логика получает владельцев, платформенная команда сохраняется.
+### Инструменты
+
+| Кольцо | Технология / практика | Файл |
+|--------|------------------------|------|
+| Adopt | Apache Airflow | [`apache-airflow.md`](radar/2026-09-17/apache-airflow.md) |
+| Adopt | CI/CD (GitLab CI) | [`gitlab-ci.md`](radar/2026-09-17/gitlab-ci.md) |
+| Adopt | Power BI | [`power-bi.md`](radar/2026-09-17/power-bi.md) |
+| Adopt | Prometheus + Grafana | [`prometheus-grafana.md`](radar/2026-09-17/prometheus-grafana.md) |
+| Adopt | Terraform | [`terraform.md`](radar/2026-09-17/terraform.md) |
+| Trial | dbt | [`dbt.md`](radar/2026-09-17/dbt.md) |
+| Trial | Debezium (CDC) | [`debezium.md`](radar/2026-09-17/debezium.md) |
+| Trial | MLflow | [`mlflow.md`](radar/2026-09-17/mlflow.md) |
+| Trial | HashiCorp Vault | [`vault.md`](radar/2026-09-17/vault.md) |
+| Assess | Каталог данных (DataHub / OpenMetadata) | [`datahub.md`](radar/2026-09-17/datahub.md) |
+| Assess | Great Expectations | [`great-expectations.md`](radar/2026-09-17/great-expectations.md) |
+
+## Как радар связан с бизнес-сценариями
+
+Каждая карточка содержит блок «Поддерживаемые бизнес-сценарии». Обратная связка — от сценария
+к технологиям:
+
+| Бизнес-сценарий | Ключевые элементы радара |
+|-----------------|--------------------------|
+| Быстрая подготовка отчётности | Lakehouse, Apache Iceberg, Dremio, слои bronze/silver/gold, dbt, объектное хранилище S3 |
+| Портал самообслуживания (витрина данных) | Self-service аналитика, React/Next.js, Dremio, Keycloak, каталог данных, Power BI |
+| Независимое развитие финтех- и ИИ-направлений | Data Mesh, Data as a Product, Data Contracts, Kafka, событийная интеграция, CI/CD, Kubernetes |
+| Подключение новых бизнесов (фарма, электроника) | Data Contracts, Data as a Product, Terraform, IaC, облачная IaaS |
+| Качество медицинских сервисов | Обезличивание, MLOps, MLflow, PostgreSQL, Data Governance |
+| Качество финансовых сервисов | Go, Java, Great Expectations, Data Contracts, Prometheus + Grafana |
+| Информационная безопасность и требования регуляторов | Data Governance, обезличивание, Keycloak, Vault, каталог данных |
+| Надёжность и доступность | Отказоустойчивость и гео-резервирование, облачная IaaS, Kubernetes, Prometheus + Grafana |
+| Снижение затрат | Объектное хранилище S3, FinOps, облачная IaaS, вывод легаси (SQL Server, ESB) |
+| Уход от легаси без остановки бизнеса | Strangler Fig, Debezium, Airflow, SQL Server 2008 (hold), ESB на Camel (hold) |
