@@ -189,20 +189,38 @@ resource "yandex_resourcemanager_folder_iam_member" "platform" {
   member    = "serviceAccount:${yandex_iam_service_account.platform.id}"
 }
 
-# Ключ для доступа к бакету по протоколу S3 — им пользуются Dremio и Airflow.
+# Ключ для доступа к бакету по протоколу S3. Нужен во время работы платформы:
+# им пользуются Dremio и Airflow, когда читают и пишут витрины.
+# Для создания самого бакета он НЕ используется — см. комментарий ниже.
 resource "yandex_iam_service_account_static_access_key" "lakehouse" {
   service_account_id = yandex_iam_service_account.platform.id
-  description        = "Доступ к бакету lakehouse по S3 API"
+  description        = "Доступ к бакету lakehouse по S3 API (runtime, для Dremio и Airflow)"
 }
 
 ###############################################################################
 # Объектное хранилище — физический слой lakehouse
 ###############################################################################
 
+# Бакет создаётся по IAM-токену самого Terraform, а не по статическому ключу
+# сервисного аккаунта платформы. Указание folder_id переключает провайдер
+# в режим IAM-токена.
+#
+# Почему так, а не через access_key/secret_key:
+#   1. Настройка бакета (versioning, lifecycle, ACL) требует роли storage.admin.
+#      У сервисного аккаунта платформы намеренно только storage.editor —
+#      узлам платформы незачем менять настройки бакета, им нужно читать и
+#      писать объекты. Расширять их права до storage.admin ради одного вызова
+#      при создании — плохой размен.
+#   2. Статический ключ создаётся в этом же apply. Обращение к S3 API сразу
+#      после создания ключа упирается в задержку распространения прав и даёт
+#      случайный AccessDenied. Здесь этой гонки просто нет.
 resource "yandex_storage_bucket" "lakehouse" {
-  bucket     = var.lakehouse_bucket_name
-  access_key = yandex_iam_service_account_static_access_key.lakehouse.access_key
-  secret_key = yandex_iam_service_account_static_access_key.lakehouse.secret_key
+  bucket    = var.lakehouse_bucket_name
+  folder_id = var.folder_id
+
+  # Позволяет terraform destroy удалить непустой бакет. Для dev и trial удобно,
+  # для prod должно оставаться false, иначе одна опечатка сносит витрины.
+  force_destroy = var.bucket_force_destroy
 
   # Публичный доступ закрыт полностью: в бакете лежат финансовые витрины
   # и обезличенные медицинские данные.
