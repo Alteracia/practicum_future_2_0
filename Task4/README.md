@@ -99,7 +99,7 @@ terraform test
 Показывает, что именно будет создано, и сохраняет план в файл.
 
 ```bash
-terraform plan -out=plan.tfplan
+terraform plan -out="plan.tfplan"
 ```
 
 ### Шаг 4. apply
@@ -107,7 +107,7 @@ terraform plan -out=plan.tfplan
 Применяет сохранённый план.
 
 ```bash
-terraform apply plan.tfplan
+terraform apply "plan.tfplan"
 ```
 
 ### Шаг 5. destroy
@@ -118,19 +118,40 @@ terraform apply plan.tfplan
 terraform destroy
 ```
 
-## Переменные
+## Результат
 
-Полный список с описаниями и валидацией — в [`variables.tf`](variables.tf). Ключевые:
+```bash
+Apply complete! Resources: 21 added, 0 changed, 0 destroyed.                                                                                                                                              
 
-| Переменная | По умолчанию | Назначение |
-|------------|--------------|------------|
-| `cloud_id`, `folder_id` | — | Идентификаторы облака и каталога |
-| `environment` | `dev` | Среда: `dev` / `stage` / `prod` |
-| `subnets` | 2 зоны | Карта «зона → CIDR»; добавление зоны — одна строка |
-| `nodes` | 4 узла | Карта узлов: ресурсы, диски, зона, публичный адрес |
-| `admin_cidr_blocks` | — | Сети, из которых разрешён SSH и доступ к порталу |
-| `lakehouse_bucket_name` | — | Имя бакета (глобально уникально) |
+Outputs:                                                                                                                                                                                                  
+                                                                                                                                                                                                          
+bastion_public_ip = "46.21.245.121"                                                                                                                                                                       
+lakehouse_access_key_id = "YCAJEy5pe8R6CZY48up8afIk3"
+lakehouse_bucket = "future20-dev-lakehouse-0001"
+lakehouse_endpoint = "https://storage.yandexcloud.net/future20-dev-lakehouse-0001"
+lakehouse_secret_key = <sensitive>
+nat_gateway_id = "enpkq1a2hgc5mljtiajd"
+network_id = "enp6mu9587o2ccfd1jen"
+node_internal_ips = {
+  "airflow" = "10.10.2.15"
+  "bastion" = "10.10.1.27"
+  "dremio" = "10.10.1.18"
+  "portal" = "10.10.1.15"
+}
+node_summary = {
+  "airflow" = "airflow | ru-central1-b | 2 vCPU (20%) | 4 GB RAM | boot 20 GB network-hdd | data —"
+  "bastion" = "bastion | ru-central1-a | 2 vCPU (20%) | 2 GB RAM | boot 20 GB network-hdd | data —"
+  "dremio" = "dremio | ru-central1-a | 2 vCPU (100%) | 8 GB RAM | boot 20 GB network-hdd | data 20 GB network-ssd"
+  "portal" = "portal | ru-central1-a | 2 vCPU (20%) | 4 GB RAM | boot 20 GB network-hdd | data —"
+}
+platform_service_account_id = "ajecou7gp0f7a5j638ji"
+portal_endpoint = "https://158.160.193.6"
+ssh_command = "ssh ubuntu@46.21.245.121"
+subnet_ids = {
+  "ru-central1-a" = "e9bv04mnvgfv9581f7jt"
+  "ru-central1-b" = "e2le35olmuvmjm6puup9"
+}
+```
 
-Валидации в `variables.tf` останавливают `plan` на типовых ошибках: `0.0.0.0/0` в списке
-административных сетей, больше одного узла с публичным адресом, недопустимое значение
-`core_fraction`, SSH-ключ не в формате OpenSSH.
+![ресурсы.png](%D1%80%D0%B5%D1%81%D1%83%D1%80%D1%81%D1%8B.png)
+![Infrastructure.png](Infrastructure.png)
