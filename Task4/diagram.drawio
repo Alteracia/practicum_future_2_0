@@ -1,0 +1,169 @@
+<mxfile host="Electron">
+  <diagram name="Автоматизация развёртывания" id="task4-deploy">
+    <mxGraphModel dx="2020" dy="1987" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#222222;" value="Автоматизация развёртывания облачной инфраструктуры «Будущее&amp;nbsp;2.0»&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="1420" x="40" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#D97706;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#8A4B00;arcSize=6;" value="Разворачивается вручную (bootstrap, один&amp;nbsp;&lt;div&gt;раз до Terraform)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="580" width="300" x="40" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="&lt;b&gt;Организация, облако, каталог&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Yandex Cloud console&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="60" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="&lt;b&gt;Платёжный аккаунт и квоты&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;billing, quotas&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="60" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="&lt;b&gt;Сервисный аккаунт Terraform&lt;br&gt;и авторизованный ключ&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;IAM, роль admin на каталог&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="60" y="336" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="&lt;b&gt;Бакет под файл состояния&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;terraform.tfstate, backend &quot;s3&quot;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="60" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="&lt;b&gt;Домен и делегирование DNS&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;внешний регистратор&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="60" y="512" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="&lt;b&gt;TLS-сертификат для портала&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Certificate Manager&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="60" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#7B42BC;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#4B2080;arcSize=6;" value="Управляется Terraform&amp;nbsp;&amp;nbsp;·&amp;nbsp;&amp;nbsp;main.tf + variables.tf + terraform.tfvars" vertex="1">
+          <mxGeometry height="900" width="760" x="380" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" value="Сеть" vertex="1">
+          <mxGeometry height="195" width="720" x="400" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Сеть VPC&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_network&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="420" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;NAT-шлюз&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_gateway&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="650" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Таблица маршрутов&lt;br&gt;0.0.0.0/0 → NAT&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_route_table&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="880" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Подсеть ru-central1-a&lt;br&gt;10.10.1.0/24&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_subnet&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="420" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Подсеть ru-central1-b&lt;br&gt;10.10.2.0/24&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_subnet&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="650" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" value="&lt;font style=&quot;font-size:10px&quot;&gt;for_each по зонам:&lt;br&gt;зона добавляется&lt;br&gt;строкой в .tfvars&lt;/font&gt;" vertex="1">
+          <mxGeometry height="56" width="220" x="880" y="262" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" value="Доступы и безопасность" vertex="1">
+          <mxGeometry height="195" width="720" x="400" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Группа безопасности&lt;br&gt;бастиона (SSH)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_security_group&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="420" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="n19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Группа безопасности&lt;br&gt;платформы&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_vpc_security_group&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="650" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="n20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Сервисный аккаунт&lt;br&gt;узлов платформы&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_iam_service_account&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="880" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="n21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Роли в каталоге&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_resourcemanager_folder_iam_member&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="420" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="n22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Статический ключ&lt;br&gt;доступа к S3&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_iam_service_account_static_access_key&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="200" x="650" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="n23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" value="Хранилище" vertex="1">
+          <mxGeometry height="145" width="720" x="400" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="n24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Бакет lakehouse&lt;br&gt;версионирование, COLD через 90 дней&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_storage_bucket&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="300" x="420" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Диск данных&lt;br&gt;dremio · 20 ГБ SSD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_disk&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="760" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="n26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" value="Вычисления&amp;nbsp;&amp;nbsp;&lt;font style=&quot;font-style:normal;font-size:10px&quot;&gt;(for_each по карте nodes)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="145" width="720" x="400" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="n27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;bastion&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 2 ГБ&lt;br&gt;публичный IP (nat = true)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="420" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="n28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;dremio&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU · 8 ГБ&lt;br&gt;+ диск данных&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="592" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;airflow&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 4 ГБ&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="764" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="n30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;portal&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 4 ГБ&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="936" y="775" as="geometry" />
+        </mxCell>
+        <mxCell id="n31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" value="Публикация портала" vertex="1">
+          <mxGeometry height="90" width="720" x="400" y="905" as="geometry" />
+        </mxCell>
+        <mxCell id="n32" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Целевая группа&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_lb_target_group&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="230" x="420" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="&lt;b&gt;Сетевой балансировщик · TCP 443 → 8080&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_lb_network_load_balancer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="410" x="680" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="n34" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#3F8F4B;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#1E4A26;arcSize=6;" value="Настраивается после Terraform&amp;nbsp;&lt;div&gt;(Ansible / CI-CD)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="580" width="300" x="1180" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n35" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="&lt;b&gt;Установка ПО на ВМ&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Ansible playbooks&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="1200" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="n36" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="&lt;b&gt;Конфигурация Dremio,&lt;br&gt;Airflow, портала&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;роли Ansible, GitLab CI&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="1200" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="n37" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="&lt;b&gt;Секреты и ключи&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;HashiCorp Vault&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="1200" y="336" as="geometry" />
+        </mxCell>
+        <mxCell id="n38" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="&lt;b&gt;Пользователи и роли&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Keycloak realm&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="1200" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="n39" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="&lt;b&gt;Перенос данных из DWH&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Debezium CDC + backfill&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="1200" y="512" as="geometry" />
+        </mxCell>
+        <mxCell id="n40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="&lt;b&gt;Дашборды и алерты&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Prometheus + Grafana&lt;/font&gt;" vertex="1">
+          <mxGeometry height="68" width="260" x="1200" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="e41" edge="1" parent="1" source="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;curved=0;strokeColor=#5F6368;strokeWidth=2;fontSize=11;fontColor=#333333;endArrow=block;endFill=1;" target="n9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e42" edge="1" parent="1" source="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;curved=0;strokeColor=#5F6368;strokeWidth=2;fontSize=11;fontColor=#333333;endArrow=block;endFill=1;" target="n34" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n43" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" value="&lt;b&gt;Вход Terraform:&lt;/b&gt; cloud_id, folder_id, ключ сервисного аккаунта, backend для состояния." vertex="1">
+          <mxGeometry height="60" width="300" x="40" y="706" as="geometry" />
+        </mxCell>
+        <mxCell id="n44" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" value="&lt;b&gt;Выход (outputs.tf):&lt;/b&gt; публичный IP бастиона, внутренние адреса узлов, имя бакета, идентификатор ключа S3, адрес портала." vertex="1">
+          <mxGeometry height="70" width="300" x="1180" y="706" as="geometry" />
+        </mxCell>
+        <mxCell id="n45" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9AA0A6;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#444444;arcSize=6;" value="Легенда" vertex="1">
+          <mxGeometry height="100" width="760" x="40" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="n46" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" value="Управляется Terraform" vertex="1">
+          <mxGeometry height="45" width="210" x="60" y="1065" as="geometry" />
+        </mxCell>
+        <mxCell id="n47" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" value="Разворачивается вручную" vertex="1">
+          <mxGeometry height="45" width="210" x="290" y="1065" as="geometry" />
+        </mxCell>
+        <mxCell id="n48" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" value="Настраивается после apply" vertex="1">
+          <mxGeometry height="45" width="210" x="520" y="1065" as="geometry" />
+        </mxCell>
+        <mxCell id="1GwLnZVjWrQGG3Ph6zhF-1" parent="1" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAzMiAzMiIgaGVpZ2h0PSIzMiIgd2lkdGg9IjMyIj4mI3hhOzxyZWN0IGZpbGw9IiM1MjgyRkYiIHJ4PSIxNiIgaGVpZ2h0PSIzMiIgd2lkdGg9IjMyIi8+JiN4YTs8cGF0aCBmaWxsPSJ3aGl0ZSIgZD0iTTE1LjE3NDYgOC4yMjUzM0MxNS42ODM3IDcuOTI0OSAxNi4zMTU1IDcuOTI0ODkgMTYuODI0NiA4LjIyNTNMMjIuMiAxMS4zOTcyQzIyLjY5NTcgMTEuNjg5NyAyMyAxMi4yMjI5IDIzIDEyLjc5OTFWMTQuOTk5OUgxOC44MjkzQzE4LjQxNzQgMTMuODM0OCAxNy4zMDYyIDEzIDE2IDEzQzE0LjM0MzEgMTMgMTMgMTQuMzQzMSAxMyAxNkMxMyAxNy42NTY5IDE0LjM0MzEgMTkgMTYgMTlDMTcuMzA2MiAxOSAxOC40MTc1IDE4LjE2NTIgMTguODI5MyAxNi45OTk5SDIzVjE5LjIwMDlDMjMgMTkuNzc3MSAyMi42OTU3IDIwLjMxMDMgMjIuMiAyMC42MDI4TDE2LjgyNDYgMjMuNzc0N0MxNi4zMTU1IDI0LjA3NTEgMTUuNjgzNyAyNC4wNzUxIDE1LjE3NDYgMjMuNzc0N0w5Ljc5OTk3IDIwLjYwMjlDOS4zMDQyNiAyMC4zMTAzIDkgMTkuNzc3MSA5IDE5LjIwMDlWMTIuNzk5MUM5IDEyLjIyMjkgOS4zMDQyNyAxMS42ODk3IDkuNzk5OTcgMTEuMzk3MUwxNS4xNzQ2IDguMjI1MzNaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPiYjeGE7PC9zdmc+;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="70" y="178" as="geometry" />
+        </mxCell>
+        <mxCell id="1GwLnZVjWrQGG3Ph6zhF-2" parent="1" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAzMiAzMiIgaGVpZ2h0PSIzMiIgd2lkdGg9IjMyIj4mI3hhOzxyZWN0IGZpbGw9IiM1MjgyRkYiIHJ4PSIxNiIgaGVpZ2h0PSIzMiIgd2lkdGg9IjMyIi8+JiN4YTs8cGF0aCBmaWxsPSJ3aGl0ZSIgZD0iTTggMjEuMTExMUM4IDIxLjg2MTIgOC41ODMzMyAyMi40NDQ0IDkuMzMzMzMgMjIuNDQ0NEgyMi42NjY3QzIzLjM4ODkgMjIuNDQ0NCAyNCAyMS44NjEyIDI0IDIxLjExMTFWMTYuMjIyMkg4VjIxLjExMTFaTTEzLjMzMzMgMTkuMjIyMkMxMy4zMzMzIDE5LjA1NTYgMTMuNDcyMiAxOC44ODg5IDEzLjY2NjcgMTguODg4OUgxNy40NDQ0QzE3LjYxMTEgMTguODg4OSAxNy43Nzc4IDE5LjA1NTYgMTcuNzc3OCAxOS4yMjIyVjIwLjMzMzNDMTcuNzc3OCAyMC41Mjc4IDE3LjYxMTEgMjAuNjY2NyAxNy40NDQ0IDIwLjY2NjdIMTMuNjY2N0MxMy40NzIyIDIwLjY2NjcgMTMuMzMzMyAyMC41Mjc4IDEzLjMzMzMgMjAuMzMzM1YxOS4yMjIyWk05Ljc3Nzc4IDE5LjIyMjJDOS43Nzc3OCAxOS4wNTU2IDkuOTE2NjcgMTguODg4OSAxMC4xMTExIDE4Ljg4ODlIMTIuMTExMUMxMi4yNzc4IDE4Ljg4ODkgMTIuNDQ0NCAxOS4wNTU2IDEyLjQ0NDQgMTkuMjIyMlYyMC4zMzMzQzEyLjQ0NDQgMjAuNTI3OCAxMi4yNzc4IDIwLjY2NjcgMTIuMTExMSAyMC42NjY3SDEwLjExMTFDOS45MTY2NyAyMC42NjY3IDkuNzc3NzggMjAuNTI3OCA5Ljc3Nzc4IDIwLjMzMzNWMTkuMjIyMlpNMjQgMTEuMzMzM0MyNCAxMC42MTExIDIzLjM4ODkgMTAgMjIuNjY2NyAxMEg5LjMzMzMzQzguNTgzMzMgMTAgOCAxMC42MTExIDggMTEuMzMzM1YxMi42NjY3SDI0VjExLjMzMzNaIi8+JiN4YTs8L3N2Zz4=;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="70" y="266" as="geometry" />
+        </mxCell>
+        <mxCell id="1GwLnZVjWrQGG3Ph6zhF-3" parent="1" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIiBmaWxsPSJub25lIj4mI3hhOzxwYXRoIGQ9Ik0wIDE2QzAgNy4xNjM0NCA3LjE2MzQ0IDAgMTYgMFYwQzI0LjgzNjYgMCAzMiA3LjE2MzQ0IDMyIDE2VjE2QzMyIDI0LjgzNjYgMjQuODM2NiAzMiAxNiAzMlYzMkM3LjE2MzQ0IDMyIDAgMjQuODM2NiAwIDE2VjE2WiIgZmlsbD0iIzUyODJGRiIvPiYjeGE7PHBhdGggZD0iTTE4LjUgOEMxNS41IDggMTMgMTAuNSAxMyAxMy41QzEzIDE0LjIgMTMuMSAxNC45IDEzLjQgMTUuNkw4IDIxVjI0SDExTDE2LjQgMTguNkMxNy4xIDE4LjkgMTcuOCAxOSAxOC41IDE5QzIxLjUgMTkgMjQgMTYuNSAyNCAxMy41QzI0IDEwLjUgMjEuNSA4IDE4LjUgOFpNMjAgMTRDMTguOSAxNCAxOCAxMy4xIDE4IDEyQzE4IDEwLjkgMTguOSAxMCAyMCAxMEMyMS4xIDEwIDIyIDEwLjkgMjIgMTJDMjIgMTMuMSAyMS4xIDE0IDIwIDE0WiIgZmlsbD0id2hpdGUiLz4mI3hhOzwvc3ZnPg==;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="70" y="354" as="geometry" />
+        </mxCell>
+        <mxCell id="1GwLnZVjWrQGG3Ph6zhF-4" parent="1" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIiBmaWxsPSJub25lIj4mI3hhOzxwYXRoIGQ9Ik0wIDE2QzAgNy4xNjM0NCA3LjE2MzQ0IDAgMTYgMFYwQzI0LjgzNjYgMCAzMiA3LjE2MzQ0IDMyIDE2VjE2QzMyIDI0LjgzNjYgMjQuODM2NiAzMiAxNiAzMlYzMkM3LjE2MzQ0IDMyIDAgMjQuODM2NiAwIDE2VjE2WiIgZmlsbD0iIzUyODJGRiIvPiYjeGE7PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMiA4QzIyIDcuNCAyMS42IDcgMjEgN0gxMUMxMC40IDcgMTAgNy40IDEwIDhWMTBIMjJWOFpNMjMgMTJDMjMgMTEuNCAyMi42IDExIDIyIDExSDEwQzkuNCAxMSA5IDExLjQgOSAxMlYxNEgyM1YxMlpNOSAxNUgyM0MyMy41IDE1IDI0IDE1LjQgMjQgMTZWMjJDMjQgMjIuNiAyMy42IDIzIDIzIDIzSDlDOC40IDIzIDggMjIuNiA4IDIyVjE2QzggMTUuNCA4LjQgMTUgOSAxNVpNMTQgMjBIMThDMTguNSAyMCAxOSAxOS41IDE5IDE5QzE5IDE4LjQgMTguNiAxOCAxOCAxOEgxNEMxMy40IDE4IDEzIDE4LjQgMTMgMTlDMTMgMTkuNiAxMy40IDIwIDE0IDIwWiIgZmlsbD0id2hpdGUiLz4mI3hhOzwvc3ZnPg==;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="70" y="442" as="geometry" />
+        </mxCell>
+        <mxCell id="1GwLnZVjWrQGG3Ph6zhF-5" parent="1" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAzMiAzMiIgaGVpZ2h0PSIzMiIgd2lkdGg9IjMyIj4mI3hhOzxyZWN0IGZpbGw9IiM1MjgyRkYiIHJ4PSIxNiIgaGVpZ2h0PSIzMiIgd2lkdGg9IjMyIi8+JiN4YTs8cGF0aCBmaWxsPSJ3aGl0ZSIgZD0iTTggMjAuMDAyVjExSDEwLjE1QzExLjE3NSAxMSAxMS45MDcgMTEuMjI4IDEyLjM0MyAxMS42ODVDMTIuNzgxIDEyLjE0MyAxMyAxMi45MDcgMTMgMTMuOTc4VjE2LjQ5OEMxMy4wMDQgMTcuODUyIDEyLjgxMiAxOC43NzMgMTIuNDI1IDE5LjI2NEMxMi4wNCAxOS43NTQgMTEuMzExIDIwLjAwMSAxMC4yNCAyMC4wMDFMOCAyMC4wMDJaTTE0IDIwLjAwMlYxMUgxNkwxNy42OTIgMTcuNTk3VjExSDE5VjIwLjAwMUgxN0wxNS4zMSAxMy4zMzlWMjAuMDAxTDE0IDIwLjAwMlpNMjAuNDU1IDE5LjQxNUMyMC4xNTIgMTkuMDI0IDIwIDE4LjM4NiAyMCAxNy41MDRWMTcuMTYySDIxLjI4OFYxNy40MjJDMjEuMjgxIDE3Ljg0NCAyMS4zMzggMTguMTYgMjEuNDU4IDE4LjM3QzIxLjU3NiAxOC41ODEgMjEuNzU4IDE4LjY4NiAyMi4wMDEgMTguNjg2QzIyLjEwNzMgMTguNjkxNyAyMi4yMTMgMTguNjY4MSAyMi4zMDY4IDE4LjYxNzhDMjIuNDAwNiAxOC41Njc2IDIyLjQ3ODkgMTguNDkyNiAyMi41MzMgMTguNDAxQzIyLjY1MSAxOC4yMTEgMjIuNzA4IDE3LjkyNSAyMi43MDggMTcuNTQxQzIyLjcwOCAxNy4yNTYgMjIuNjM4IDE3LjAxMSAyMi40OTMgMTYuODAzQzIyLjM1MiAxNi41OTcgMjIuMTA0IDE2LjM3OCAyMS43NDggMTYuMTQ3QzIxLjEyOCAxNS43NDYgMjAuNjkzIDE1LjM1MyAyMC40NDcgMTQuOTYzQzIwLjE5OSAxNC41OCAyMC4wNzUgMTQuMTAzIDIwLjA3NSAxMy41MzNDMjAuMDc1IDEyLjY4NyAyMC4yNDEgMTIuMDUzIDIwLjU3MyAxMS42MzJDMjAuOTA3IDExLjIxMSAyMS40MDcgMTEgMjIuMDc1IDExQzIyLjc2MSAxMSAyMy4yNDUgMTEuMTk2IDIzLjUyOCAxMS41ODhDMjMuNzk1IDExLjk2IDIzLjkyNCAxMi41NTggMjMuOTIxIDEzLjM4NEwyMy45MjMgMTMuNTc2VjEzLjgzNkgyMi42MzVWMTMuNTc2QzIyLjY0MSAxMy4xMTQgMjIuNTk5IDEyLjc4OCAyMi41MDggMTIuNTk3QzIyLjQxOCAxMi40MDggMjIuMjYgMTIuMzEzIDIyLjAzNSAxMi4zMTNDMjEuOTM1NCAxMi4zMDc0IDIxLjgzNjEgMTIuMzI4OCAyMS43NDc3IDEyLjM3NTJDMjEuNjU5MyAxMi40MjE1IDIxLjU4NTEgMTIuNDkwOSAyMS41MzMgMTIuNTc2QzIxLjQyMSAxMi43NTIgMjEuMzY3IDEzLjAxNSAyMS4zNjcgMTMuMzY2QzIxLjM2NyAxMy42MzggMjEuNDMyIDEzLjg3MSAyMS41NjUgMTQuMDY2QzIxLjY5MyAxNC4yNiAyMS45MjMgMTQuNDYyIDIyLjI1MiAxNC42NzJDMjIuODk5IDE1LjA5NCAyMy4zNTIgMTUuNTA1IDIzLjYxMSAxNS45MDVDMjMuODcxIDE2LjMwNiAyNCAxNi43OTcgMjQgMTcuMzhDMjQgMTguMjU0IDIzLjgzMyAxOC45MSAyMy41MDEgMTkuMzQ1QzIzLjE2OCAxOS43ODEgMjIuNjY4IDE5Ljk5OSAyMiAxOS45OTlDMjEuMjcyIDE5Ljk5OSAyMC43NTYgMTkuODA0IDIwLjQ1NSAxOS40MTVaTTExLjEgMTguMjk1QzExLjI3NiAxOC4wNTggMTEuMzY1IDE3LjYwMiAxMS4zNjUgMTYuOTI2VjEzLjk1NEMxMS4zNjUgMTMuMzQ0IDExLjI2NyAxMi45MjUgMTEuMDY4IDEyLjY5NkMxMC44NzEgMTIuNDY2IDEwLjUwOCAxMi4zNTIgOS45OCAxMi4zNTJIOS42MzZWMTguNjQ4SDEwLjA2NkMxMC41NzcgMTguNjQ4IDEwLjkyMyAxOC41MyAxMS4xIDE4LjI5NlYxOC4yOTVaIi8+JiN4YTs8L3N2Zz4=;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="70" y="530" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
