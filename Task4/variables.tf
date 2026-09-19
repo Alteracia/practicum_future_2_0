@@ -96,7 +96,9 @@ variable "service_account_roles" {
   type        = list(string)
 
   default = [
-    "storage.editor",    # чтение и запись витрин в бакете lakehouse
+    # storage.editor достаточно: узлы читают и пишут объекты, но не меняют
+    # настройки бакета. Настройку делает Terraform своим IAM-токеном.
+    "storage.editor",
     "monitoring.editor", # отправка метрик
     "logging.writer",    # отправка логов
     "kms.keys.encrypterDecrypter",
@@ -111,6 +113,16 @@ variable "lakehouse_bucket_name" {
     condition     = can(regex("^[a-z0-9][a-z0-9.-]{2,62}$", var.lakehouse_bucket_name))
     error_message = "Имя бакета: строчные латинские буквы, цифры, точка и дефис, от 3 до 63 символов."
   }
+}
+
+variable "bucket_force_destroy" {
+  description = <<-EOT
+    Разрешить terraform destroy удалять непустой бакет.
+    true — для dev и trial, чтобы среда сносилась одной командой.
+    false — для prod: защита от удаления витрин по ошибке.
+  EOT
+  type        = bool
+  default     = false
 }
 
 variable "cold_storage_after_days" {
