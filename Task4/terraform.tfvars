@@ -5,8 +5,11 @@
 # SSH-ключ указан публичной частью. Авторизация Terraform в облаке идёт через
 # переменную окружения YC_TOKEN или ключ сервисного аккаунта — см. README.md.
 #
-# ВНИМАНИЕ: перед запуском подставьте идентификаторы своего каталога и свой
-# SSH-ключ. Значения ниже — заполнители.
+# ВНИМАНИЕ: перед запуском подставьте идентификаторы своего каталога, свой
+# SSH-ключ и своё имя бакета. Значения ниже — заполнители.
+#
+# Размеры подобраны так, чтобы уложиться в квоты пробного аккаунта Yandex
+# Cloud: 8 vCPU, 18 ГБ RAM, 80 ГБ network-hdd, 20 ГБ network-ssd.
 ###############################################################################
 
 cloud_id  = "b1gxxxxxxxxxxxxxxxxx" # заполнитель: ваш cloud_id
@@ -35,9 +38,13 @@ ssh_user = "ubuntu"
 # Заполнитель. Подставьте содержимое своего ~/.ssh/id_ed25519.pub
 ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIREPLACEWITHYOUROWNPUBLICKEY00000000000 platform-admin"
 
-# Имя бакета глобально уникально — добавьте свой суффикс.
+# Имя бакета уникально во всём Yandex Object Storage — замените суффикс на свой.
 lakehouse_bucket_name   = "future20-dev-lakehouse-0001"
 cold_storage_after_days = 90
+
+# Среда dev сносится одной командой после проверки, поэтому terraform destroy
+# разрешено удалить бакет вместе с содержимым.
+bucket_force_destroy = true
 
 portal_node        = "portal"
 portal_target_port = 8080
@@ -45,9 +52,8 @@ portal_target_port = 8080
 ###############################################################################
 # Состав платформы.
 #
-# Размеры подобраны под среду dev: проверить конфигурацию и цифры первых
-# витрин. Для prod меняются только значения в этом файле — main.tf остаётся
-# тем же. Обоснование размеров — в justification.md.
+# Итого: 8 vCPU, 18 ГБ RAM, 80 ГБ network-hdd, 20 ГБ network-ssd.
+# Обоснование размеров — в justification.md.
 ###############################################################################
 
 nodes = {
@@ -57,6 +63,7 @@ nodes = {
     cores             = 2
     memory_gb         = 2
     core_fraction     = 20
+    boot_disk_type    = "network-hdd"
     boot_disk_size_gb = 20
     public_ip         = true
   }
@@ -64,39 +71,31 @@ nodes = {
   dremio = {
     description       = "Движок запросов и семантический слой над Iceberg"
     zone              = "ru-central1-a"
-    cores             = 8
-    memory_gb         = 32
-    boot_disk_size_gb = 40
-    data_disk_size_gb = 200
+    cores             = 2
+    memory_gb         = 8
+    boot_disk_type    = "network-hdd"
+    boot_disk_size_gb = 20
+    data_disk_size_gb = 20
     data_disk_type    = "network-ssd"
   }
 
   airflow = {
     description       = "Оркестрация загрузок и трансформаций"
     zone              = "ru-central1-b"
-    cores             = 4
-    memory_gb         = 16
-    boot_disk_size_gb = 40
-    data_disk_size_gb = 100
-    data_disk_type    = "network-ssd"
+    cores             = 2
+    memory_gb         = 4
+    core_fraction     = 20
+    boot_disk_type    = "network-hdd"
+    boot_disk_size_gb = 20
   }
 
   portal = {
     description       = "Портал самообслуживания: каталог витрин и конструктор отчётов"
     zone              = "ru-central1-a"
-    cores             = 4
-    memory_gb         = 8
-    boot_disk_size_gb = 30
-  }
-
-  keycloak = {
-    description       = "Единый вход и ролевая модель доступа к витринам"
-    zone              = "ru-central1-b"
     cores             = 2
     memory_gb         = 4
-    core_fraction     = 50
-    boot_disk_size_gb = 30
-    data_disk_size_gb = 20
-    data_disk_type    = "network-hdd"
+    core_fraction     = 20
+    boot_disk_type    = "network-hdd"
+    boot_disk_size_gb = 20
   }
 }

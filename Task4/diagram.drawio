@@ -74,90 +74,81 @@
           <mxGeometry x="400" y="575" width="720" height="145" as="geometry" />
         </mxCell>
         <mxCell id="n24" value="&lt;b&gt;Бакет lakehouse&lt;br&gt;версионирование, COLD через 90 дней&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_storage_bucket&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="420" y="610" width="210" height="80" as="geometry" />
+          <mxGeometry x="420" y="610" width="300" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="n25" value="&lt;b&gt;Диск данных&lt;br&gt;dremio · 200 ГБ SSD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_disk&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="650" y="610" width="145" height="80" as="geometry" />
+        <mxCell id="n25" value="&lt;b&gt;Диск данных&lt;br&gt;dremio · 20 ГБ SSD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_disk&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="760" y="610" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="n26" value="&lt;b&gt;Диск данных&lt;br&gt;airflow · 100 ГБ SSD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_disk&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="815" y="610" width="145" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="n27" value="&lt;b&gt;Диск данных&lt;br&gt;keycloak · 20 ГБ HDD&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_disk&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="980" y="610" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="n28" value="Вычисления&amp;nbsp;&amp;nbsp;&lt;font style=&quot;font-style:normal;font-size:10px&quot;&gt;(for_each по карте nodes)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" vertex="1" parent="1">
+        <mxCell id="n26" value="Вычисления&amp;nbsp;&amp;nbsp;&lt;font style=&quot;font-style:normal;font-size:10px&quot;&gt;(for_each по карте nodes)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" vertex="1" parent="1">
           <mxGeometry x="400" y="740" width="720" height="145" as="geometry" />
         </mxCell>
-        <mxCell id="n29" value="&lt;b&gt;bastion&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 2 ГБ&lt;br&gt;публичный IP (nat = true)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="420" y="775" width="130" height="90" as="geometry" />
+        <mxCell id="n27" value="&lt;b&gt;bastion&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 2 ГБ&lt;br&gt;публичный IP (nat = true)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="775" width="160" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="n30" value="&lt;b&gt;dremio&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;8 vCPU · 32 ГБ&lt;br&gt;+ диск данных&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="560" y="775" width="130" height="90" as="geometry" />
+        <mxCell id="n28" value="&lt;b&gt;dremio&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU · 8 ГБ&lt;br&gt;+ диск данных&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="592" y="775" width="160" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="n31" value="&lt;b&gt;airflow&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;4 vCPU · 16 ГБ&lt;br&gt;+ диск данных&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="700" y="775" width="130" height="90" as="geometry" />
+        <mxCell id="n29" value="&lt;b&gt;airflow&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 4 ГБ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="764" y="775" width="160" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="n32" value="&lt;b&gt;portal&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;4 vCPU · 8 ГБ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="840" y="775" width="130" height="90" as="geometry" />
+        <mxCell id="n30" value="&lt;b&gt;portal&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (20%) · 4 ГБ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="936" y="775" width="160" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="n33" value="&lt;b&gt;keycloak&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_compute_instance&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;2 vCPU (50%) · 4 ГБ&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="980" y="775" width="130" height="90" as="geometry" />
-        </mxCell>
-        <mxCell id="n34" value="Публикация портала" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" vertex="1" parent="1">
+        <mxCell id="n31" value="Публикация портала" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B9A6D4;dashed=1;dashPattern=4 4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=3;fontStyle=2;fontSize=11;fontColor=#6B4E9B;arcSize=6;" vertex="1" parent="1">
           <mxGeometry x="400" y="905" width="720" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="n35" value="&lt;b&gt;Целевая группа&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_lb_target_group&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n32" value="&lt;b&gt;Целевая группа&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_lb_target_group&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="420" y="930" width="230" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="n36" value="&lt;b&gt;Сетевой балансировщик · TCP 443 → 8080&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_lb_network_load_balancer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n33" value="&lt;b&gt;Сетевой балансировщик · TCP 443 → 8080&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;yandex_lb_network_load_balancer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="680" y="930" width="410" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="n37" value="Настраивается после Terraform (Ansible / CI-CD)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#3F8F4B;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#1E4A26;arcSize=6;" vertex="1" parent="1">
+        <mxCell id="n34" value="Настраивается после Terraform (Ansible / CI-CD)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#3F8F4B;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#1E4A26;arcSize=6;" vertex="1" parent="1">
           <mxGeometry x="1160" y="110" width="300" height="580" as="geometry" />
         </mxCell>
-        <mxCell id="n38" value="&lt;b&gt;Установка ПО на ВМ&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Ansible playbooks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n35" value="&lt;b&gt;Установка ПО на ВМ&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Ansible playbooks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1180" y="150" width="260" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="n39" value="&lt;b&gt;Конфигурация Dremio,&lt;br&gt;Airflow, портала&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;роли Ansible, GitLab CI&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n36" value="&lt;b&gt;Конфигурация Dremio,&lt;br&gt;Airflow, портала&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;роли Ansible, GitLab CI&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1180" y="238" width="260" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="n40" value="&lt;b&gt;Секреты и ключи&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;HashiCorp Vault&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n37" value="&lt;b&gt;Секреты и ключи&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;HashiCorp Vault&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1180" y="326" width="260" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="n41" value="&lt;b&gt;Пользователи и роли&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Keycloak realm&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n38" value="&lt;b&gt;Пользователи и роли&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Keycloak realm&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1180" y="414" width="260" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="n42" value="&lt;b&gt;Перенос данных из DWH&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Debezium CDC + backfill&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n39" value="&lt;b&gt;Перенос данных из DWH&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Debezium CDC + backfill&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1180" y="502" width="260" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="n43" value="&lt;b&gt;Дашборды и алерты&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Prometheus + Grafana&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n40" value="&lt;b&gt;Дашборды и алерты&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Prometheus + Grafana&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="1180" y="590" width="260" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="e44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;curved=0;strokeColor=#5F6368;strokeWidth=2;fontSize=11;fontColor=#333333;endArrow=block;endFill=1;" edge="1" parent="1" source="n2" target="n9">
+        <mxCell id="e41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;curved=0;strokeColor=#5F6368;strokeWidth=2;fontSize=11;fontColor=#333333;endArrow=block;endFill=1;" edge="1" parent="1" source="n2" target="n9">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;curved=0;strokeColor=#5F6368;strokeWidth=2;fontSize=11;fontColor=#333333;endArrow=block;endFill=1;" edge="1" parent="1" source="n9" target="n37">
+        <mxCell id="e42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;curved=0;strokeColor=#5F6368;strokeWidth=2;fontSize=11;fontColor=#333333;endArrow=block;endFill=1;" edge="1" parent="1" source="n9" target="n34">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="n46" value="&lt;b&gt;Вход Terraform:&lt;/b&gt; cloud_id, folder_id, ключ сервисного аккаунта, backend для состояния." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="n43" value="&lt;b&gt;Вход Terraform:&lt;/b&gt; cloud_id, folder_id, ключ сервисного аккаунта, backend для состояния." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="40" y="706" width="300" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="n47" value="&lt;b&gt;Выход (outputs.tf):&lt;/b&gt; публичный IP бастиона, внутренние адреса узлов, имя бакета, идентификатор ключа S3, адрес портала." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="n44" value="&lt;b&gt;Выход (outputs.tf):&lt;/b&gt; публичный IP бастиона, внутренние адреса узлов, имя бакета, идентификатор ключа S3, адрес портала." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="1160" y="706" width="300" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="n48" value="Легенда" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9AA0A6;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#444444;arcSize=6;" vertex="1" parent="1">
+        <mxCell id="n45" value="Легенда" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9AA0A6;dashed=1;dashPattern=8 4;verticalAlign=top;align=left;spacingLeft=12;spacingTop=4;fontStyle=1;fontSize=12;fontColor=#444444;arcSize=6;" vertex="1" parent="1">
           <mxGeometry x="380" y="1030" width="760" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="n49" value="Управляется Terraform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n46" value="Управляется Terraform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE3F7;strokeColor=#7B42BC;fontColor=#35185C;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="400" y="1065" width="210" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="n50" value="Разворачивается вручную" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n47" value="Разворачивается вручную" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0DE;strokeColor=#D97706;fontColor=#6B3A00;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="630" y="1065" width="210" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="n51" value="Настраивается после apply" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="n48" value="Настраивается после apply" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2E6;strokeColor=#3F8F4B;fontColor=#1E4A26;arcSize=12;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="860" y="1065" width="210" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="n52" value="&lt;b&gt;Порядок создания внутри контура Terraform не задаётся вручную.&lt;/b&gt; Terraform строит граф зависимостей по ссылкам между ресурсами: подсеть не создастся раньше сети, виртуальная машина — раньше подсети и диска, балансировщик — раньше машины портала.&lt;br&gt;&lt;br&gt;&lt;b&gt;NAT.&lt;/b&gt; Публичный адрес (&lt;i&gt;nat = true&lt;/i&gt;) есть только у бастиона. Остальные узлы выходят в интернет через NAT-шлюз по маршруту 0.0.0.0/0 и снаружи недоступны — входящие соединения к ним невозможны.&lt;br&gt;&lt;br&gt;&lt;b&gt;Команды:&lt;/b&gt; terraform init → terraform plan → terraform apply." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="n49" value="&lt;b&gt;Порядок создания внутри контура Terraform не задаётся вручную.&lt;/b&gt; Terraform строит граф зависимостей по ссылкам между ресурсами: подсеть не создастся раньше сети, виртуальная машина — раньше подсети и диска, балансировщик — раньше машины портала.&lt;br&gt;&lt;br&gt;&lt;b&gt;NAT.&lt;/b&gt; Публичный адрес (&lt;i&gt;nat = true&lt;/i&gt;) есть только у бастиона. Остальные узлы выходят в интернет через NAT-шлюз по маршруту 0.0.0.0/0 и снаружи недоступны — входящие соединения к ним невозможны.&lt;br&gt;&lt;br&gt;&lt;b&gt;Команды:&lt;/b&gt; terraform init → terraform plan → terraform apply." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#444444;whiteSpace=wrap;" vertex="1" parent="1">
           <mxGeometry x="1160" y="1030" width="300" height="200" as="geometry" />
         </mxCell>
       </root>

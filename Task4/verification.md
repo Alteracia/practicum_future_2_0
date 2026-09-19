@@ -75,11 +75,10 @@ Success! 7 passed, 0 failed.
 ```
 Changes to Outputs:
   + node_summary = {
-      + airflow  = "airflow | ru-central1-b | 4 vCPU (100%) | 16 GB RAM | boot 40 GB network-ssd | data 100 GB network-ssd"
-      + bastion  = "bastion | ru-central1-a | 2 vCPU (20%) | 2 GB RAM | boot 20 GB network-ssd | data —"
-      + dremio   = "dremio | ru-central1-a | 8 vCPU (100%) | 32 GB RAM | boot 40 GB network-ssd | data 200 GB network-ssd"
-      + keycloak = "keycloak | ru-central1-b | 2 vCPU (50%) | 4 GB RAM | boot 30 GB network-ssd | data 20 GB network-hdd"
-      + portal   = "portal | ru-central1-a | 4 vCPU (100%) | 8 GB RAM | boot 30 GB network-ssd | data —"
+      + airflow = "airflow | ru-central1-b | 2 vCPU (20%) | 4 GB RAM | boot 20 GB network-hdd | data —"
+      + bastion = "bastion | ru-central1-a | 2 vCPU (20%) | 2 GB RAM | boot 20 GB network-hdd | data —"
+      + dremio  = "dremio | ru-central1-a | 2 vCPU (100%) | 8 GB RAM | boot 20 GB network-hdd | data 20 GB network-ssd"
+      + portal  = "portal | ru-central1-a | 2 vCPU (20%) | 4 GB RAM | boot 20 GB network-hdd | data —"
     }
 
 Error: Failed to configure
@@ -98,60 +97,19 @@ Terraform успел вычислить значения, не зависящи�
 ## Что нужно выполнить с реальными учётными данными
 
 Реальный `terraform apply` создаёт платные ресурсы в вашем каталоге Yandex Cloud, поэтому
-выполняется вами.
+выполняется вами. Шаги — в [`README.md`](README.md), раздел «Как запустить».
 
-### 1. Подставить свои значения
+После успешного `apply` приложите к пул-реквесту скриншот вывода: строка вида
+`Apply complete! Resources: 20 added, 0 changed, 0 destroyed.` и блок `Outputs:`.
+Файл положите рядом под именем `apply-screenshot.png` и сошлитесь на него здесь:
 
-В [`terraform.tfvars`](terraform.tfvars) заменить заполнители:
-
-- `cloud_id` и `folder_id` — идентификаторы вашего облака и каталога;
-- `ssh_public_key` — содержимое вашего `~/.ssh/id_ed25519.pub`;
-- `lakehouse_bucket_name` — имя бакета должно быть глобально уникальным, добавьте свой суффикс;
-- `admin_cidr_blocks` — сети, из которых вы будете подключаться.
-
-### 2. Авторизоваться
-
-```bash
-export YC_TOKEN="$(yc iam create-token)"
-```
-
-### 3. Запустить
-
-```bash
-terraform init
-```
-
-```bash
-terraform plan -out=plan.tfplan
-```
-
-```bash
-terraform apply plan.tfplan
-```
-
-### 4. Приложить скриншот
-
-Скриншот вывода `terraform apply` — со строкой вида
-`Apply complete! Resources: 24 added, 0 changed, 0 destroyed.` и блоком `Outputs:` —
-положить в этот каталог под именем `apply-screenshot.png` и сослаться на него здесь.
-
-> **Место под скриншот:**
 > `![Результат terraform apply](apply-screenshot.png)`
-
-### 5. Убрать за собой
-
-Среда `dev` не нужна постоянно — после снятия скриншота ресурсы стоит удалить,
-чтобы не платить за простой:
-
-```bash
-terraform destroy
-```
 
 ---
 
 ## Ожидаемый состав изменений
 
-При успешном `apply` с текущим `terraform.tfvars` создаётся **24 ресурса**:
+При успешном `apply` с текущим `terraform.tfvars` создаётся **20 ресурсов**:
 
 | Ресурс | Кол-во |
 |--------|--------|
@@ -164,12 +122,10 @@ terraform destroy
 | `yandex_resourcemanager_folder_iam_member` | 4 |
 | `yandex_iam_service_account_static_access_key` | 1 |
 | `yandex_storage_bucket` | 1 |
-| `yandex_compute_disk` | 3 |
-| `yandex_compute_instance` | 5 |
+| `yandex_compute_disk` | 1 |
+| `yandex_compute_instance` | 4 |
 | `yandex_lb_target_group` | 1 |
 | `yandex_lb_network_load_balancer` | 1 |
-| **Итого** | **24** |
+| **Итого** | **20** |
 
-> Число выведено из карт `nodes` (5 узлов, из них 3 с диском данных), `subnets` (2 зоны)
-> и `service_account_roles` (4 роли). При изменении этих карт состав меняется — точное
-> значение всегда показывает `plan` до применения.
+Суммарная потребность: 8 vCPU, 18 ГБ RAM, 80 ГБ network-hdd, 20 ГБ network-ssd.
