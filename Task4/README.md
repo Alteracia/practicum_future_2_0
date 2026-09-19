@@ -46,71 +46,73 @@ Terraform-конфигурация базового слоя платформы 
 | `yandex_resourcemanager_folder_iam_member` | 4 | Роли сервисного аккаунта (`for_each`) |
 | `yandex_iam_service_account_static_access_key` | 1 | Ключ доступа к бакету по S3 API |
 | `yandex_storage_bucket` | 1 | Бакет lakehouse: версионирование, переход в COLD |
-| `yandex_compute_disk` | 3 | Диски данных `dremio`, `airflow`, `keycloak` |
-| `yandex_compute_instance` | 5 | `bastion`, `dremio`, `airflow`, `portal`, `keycloak` (`for_each`) |
+| `yandex_compute_disk` | 1 | Диск данных `dremio` |
+| `yandex_compute_instance` | 4 | `bastion`, `dremio`, `airflow`, `portal` (`for_each`) |
 | `yandex_lb_target_group` | 1 | Целевая группа портала |
 | `yandex_lb_network_load_balancer` | 1 | Внешняя точка входа, TCP 443 → 8080 |
+| **Итого** | **20** | 8 vCPU, 18 ГБ RAM, 80 ГБ network-hdd, 20 ГБ network-ssd |
 
 ## Как запустить
 
-### 0. Подготовка (вне Terraform)
+### Шаг 0. Подготовка вне Terraform
 
 1. Создать облако и каталог в Yandex Cloud, привязать платёжный аккаунт.
 2. Создать сервисный аккаунт для Terraform и выдать ему роль `admin` на каталог.
-3. Получить авторизованный ключ или OAuth-токен.
-4. Создать бакет под файл состояния, если планируется удалённый backend
-   (в `main.tf` блок `backend "s3"` закомментирован — раскомментируйте и подставьте своё имя).
-
-### 1. Авторизация
-
-Ключи не хранятся в репозитории. Экспортируйте токен в переменную окружения:
-
-```bash
-export YC_TOKEN="<ваш OAuth-токен>"
-```
-
-Либо укажите путь к ключу сервисного аккаунта:
+3. Получить авторизованный ключ этого сервисного аккаунта.
+4. В [`terraform.tfvars`](terraform.tfvars) подставить свои значения вместо заполнителей:
+   `cloud_id`, `folder_id`, `ssh_public_key` и `lakehouse_bucket_name`. Имя бакета уникально
+   во всём Yandex Object Storage — замените суффикс на свой. Сам бакет создаёт эта
+   конфигурация, заранее его заводить не нужно.
+5. Указать путь к ключу:
 
 ```bash
 export YC_SERVICE_ACCOUNT_KEY_FILE="$HOME/.yc/key.json"
 ```
 
-### 2. Заполнить `terraform.tfvars`
+### Шаг 1. init
 
-В файле лежат заполнители. Подставьте свои `cloud_id`, `folder_id`, публичный SSH-ключ
-и глобально уникальное имя бакета.
-
-### 3. Развернуть
+Скачивает провайдер и готовит рабочий каталог.
 
 ```bash
 terraform init
 ```
 
+### Шаг 2. check
+
+Форматирование, синтаксис и автотесты. Тесты гоняют `plan` и `apply` на мок-провайдере:
+в облако не ходят, ресурсы не создают, учётные данные не нужны.
+
 ```bash
-terraform fmt -check && terraform validate
+terraform fmt -check -recursive
 ```
 
 ```bash
-terraform plan -out=plan.tfplan
+terraform validate
 ```
-
-```bash
-terraform apply plan.tfplan
-```
-
-### 4. Проверить без облака
-
-Тесты гоняют `plan` и `apply` на мок-провайдере — учётные данные не нужны,
-ресурсы не создаются. Подходит для запуска в CI на каждом merge request:
 
 ```bash
 terraform test
 ```
 
-Результат прогона и состав проверок — в [`verification.md`](verification.md).
+### Шаг 3. plan
 
-### 5. Удалить созданное
+Показывает, что именно будет создано, и сохраняет план в файл.
 
+```bash
+terraform plan -out=plan.tfplan
+```
+
+### Шаг 4. apply
+
+Применяет сохранённый план.
+
+```bash
+terraform apply plan.tfplan
+```
+
+### Шаг 5. destroy
+
+После проверки среду сносим, чтобы не платить за простой.
 
 ```bash
 terraform destroy
@@ -125,18 +127,10 @@ terraform destroy
 | `cloud_id`, `folder_id` | — | Идентификаторы облака и каталога |
 | `environment` | `dev` | Среда: `dev` / `stage` / `prod` |
 | `subnets` | 2 зоны | Карта «зона → CIDR»; добавление зоны — одна строка |
-| `nodes` | 5 узлов | Карта узлов: ресурсы, диски, зона, публичный адрес |
+| `nodes` | 4 узла | Карта узлов: ресурсы, диски, зона, публичный адрес |
 | `admin_cidr_blocks` | — | Сети, из которых разрешён SSH и доступ к порталу |
 | `lakehouse_bucket_name` | — | Имя бакета (глобально уникально) |
 
 Валидации в `variables.tf` останавливают `plan` на типовых ошибках: `0.0.0.0/0` в списке
 административных сетей, больше одного узла с публичным адресом, недопустимое значение
 `core_fraction`, SSH-ключ не в формате OpenSSH.
-
-## Среды
-
-Один и тот же код разворачивает разные среды — различаются только значения переменных:
-
-```bash
-terraform apply -var-file=prod.tfvars
-```
